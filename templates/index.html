@@ -1,255 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Fake Profile Detector</title>
 
-    <title>AI Fake Profile Detector</title>
+<style>
 
-    <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:'Segoe UI',sans-serif;
-        }
+body{
 
-        body{
+    min-height:100vh;
 
-            min-height:100vh;
+    display:flex;
 
-            display:flex;
+    justify-content:center;
 
-            justify-content:center;
+    align-items:center;
 
-            align-items:center;
+    background:linear-gradient(135deg,#00c6ff,#0072ff);
 
-            background:linear-gradient(135deg,#00c6ff,#0072ff);
+    padding:20px;
+}
 
-            padding:20px;
-        }
+.container{
 
-        .container{
+    width:500px;
 
-            width:460px;
+    background:white;
 
-            background:rgba(255,255,255,0.15);
+    border-radius:30px;
 
-            backdrop-filter:blur(12px);
+    padding:40px;
 
-            border:1px solid rgba(255,255,255,0.2);
+    box-shadow:0 10px 40px rgba(0,0,0,0.2);
+}
 
-            border-radius:25px;
+h1{
 
-            padding:35px;
+    text-align:center;
 
-            color:white;
+    font-size:52px;
 
-            box-shadow:0 8px 32px rgba(0,0,0,0.25);
-        }
+    margin-bottom:15px;
 
-        h1{
+    color:#111;
+}
 
-            text-align:center;
+.subtitle{
 
-            font-size:46px;
+    text-align:center;
 
-            margin-bottom:30px;
+    color:#666;
 
-            font-weight:700;
-        }
+    margin-bottom:40px;
 
-        .toggle-buttons{
+    font-size:18px;
+}
 
-            display:flex;
+.option-btn{
 
-            gap:10px;
+    width:100%;
 
-            margin-bottom:25px;
-        }
+    padding:22px;
 
-        .toggle-buttons button{
+    margin-bottom:25px;
 
-            flex:1;
+    border:none;
 
-            padding:14px;
+    border-radius:20px;
 
-            border:none;
+    background:linear-gradient(to right,#2563eb,#3b82f6);
 
-            border-radius:12px;
+    color:white;
 
-            background:rgba(255,255,255,0.2);
+    font-size:26px;
 
-            color:white;
+    cursor:pointer;
 
-            font-size:16px;
+    transition:0.3s;
+}
 
-            cursor:pointer;
+.option-btn:hover{
 
-            transition:0.3s;
-        }
+    transform:scale(1.03);
+}
 
-        .toggle-buttons button:hover{
+.section{
+    display:none;
+}
 
-            background:white;
+.active{
+    display:block;
+}
 
-            color:#0072ff;
-        }
+.input-box{
 
-        .section{
+    width:100%;
 
-            display:none;
+    padding:18px;
 
-            animation:fade 0.4s ease;
-        }
+    margin-bottom:18px;
 
-        .active{
-            display:block;
-        }
+    border:2px solid #ddd;
 
-        @keyframes fade{
+    border-radius:18px;
 
-            from{
-                opacity:0;
-                transform:translateY(10px);
-            }
+    font-size:18px;
 
-            to{
-                opacity:1;
-                transform:translateY(0);
-            }
-        }
+    outline:none;
+}
 
-        input,
-        textarea{
+textarea{
 
-            width:100%;
+    resize:none;
 
-            padding:15px;
+    height:100px;
+}
 
-            margin:12px 0;
+.submit-btn{
 
-            border:none;
+    width:100%;
 
-            outline:none;
+    padding:18px;
 
-            border-radius:14px;
+    border:none;
 
-            background:rgba(255,255,255,0.2);
+    border-radius:18px;
 
-            color:white;
+    background:linear-gradient(to right,#2563eb,#3b82f6);
 
-            font-size:17px;
-        }
+    color:white;
 
-        input::placeholder,
-        textarea::placeholder{
-            color:#f1f1f1;
-        }
+    font-size:24px;
 
-        textarea{
+    cursor:pointer;
 
-            resize:none;
+    margin-top:15px;
+}
 
-            height:100px;
-        }
+.upload-box{
 
-        .upload-box{
+    border:3px dashed #3b82f6;
 
-            border:2px dashed rgba(255,255,255,0.5);
+    padding:40px;
 
-            padding:30px;
+    border-radius:20px;
 
-            border-radius:15px;
+    text-align:center;
+}
 
-            text-align:center;
+.upload-box h3{
 
-            margin-top:15px;
-        }
+    color:#2563eb;
 
-        .upload-box h3{
-            margin-bottom:15px;
-        }
+    margin-bottom:10px;
+}
 
-        .submit-btn{
+.result{
 
-            width:100%;
+    background:#f4f8ff;
 
-            padding:16px;
+    padding:35px;
 
-            margin-top:25px;
+    border-radius:25px;
 
-            border:none;
+    text-align:center;
+}
 
-            border-radius:15px;
+.result h2{
 
-            background:white;
+    font-size:42px;
 
-            color:#0072ff;
+    margin-bottom:20px;
+}
 
-            font-size:22px;
+.result h3{
 
-            font-weight:bold;
+    font-size:30px;
 
-            cursor:pointer;
+    margin-bottom:20px;
+}
 
-            transition:0.3s;
-        }
+.result ul{
 
-        .submit-btn:hover{
+    text-align:left;
 
-            transform:scale(1.03);
+    padding-left:30px;
 
-            background:#e8f0ff;
-        }
+    font-size:22px;
 
-        .result{
+    line-height:2;
+}
 
-            background:rgba(255,255,255,0.2);
+.back-btn{
 
-            padding:30px;
+    width:100%;
 
-            border-radius:20px;
+    padding:18px;
 
-            animation:fade 0.5s ease;
-        }
+    border:none;
 
-        .result h2{
+    border-radius:18px;
 
-            text-align:center;
+    background:#2563eb;
 
-            font-size:40px;
+    color:white;
 
-            margin-bottom:15px;
-        }
+    font-size:22px;
 
-        .result h3{
+    cursor:pointer;
 
-            font-size:28px;
+    margin-top:25px;
+}
 
-            margin-top:10px;
-        }
-
-        .result ul{
-
-            margin-top:15px;
-
-            padding-left:25px;
-
-            font-size:20px;
-
-            line-height:2;
-        }
-
-        .form-container{
-            display:block;
-        }
-
-    </style>
+</style>
 
 </head>
 
@@ -257,124 +230,140 @@
 
 <div class="container">
 
-    <h1>🔍 AI Fake Profile Detector</h1>
+{% if not result %}
 
-    {% if not result %}
+<h1>🔍 AI Fake Profile Detector</h1>
 
-    <form action="/predict"
-          method="POST"
-          enctype="multipart/form-data"
-          class="form-container">
+<p class="subtitle">
+Choose how you want to analyze the profile
+</p>
 
-        <div class="toggle-buttons">
+<!-- FIRST SCREEN -->
 
-            <button type="button"
-                    onclick="showSection('details')">
+<div id="main-options">
 
-                Enter Details
+<button class="option-btn"
+        onclick="showSection('details-section')">
 
-            </button>
+⌨️ Enter Profile Details
 
-            <button type="button"
-                    onclick="showSection('image')">
+</button>
 
-                Upload Screenshot
+<button class="option-btn"
+        onclick="showSection('upload-section')">
 
-            </button>
+⬆️ Upload Instagram Screenshot
 
-        </div>
+</button>
 
-        <!-- DETAILS SECTION -->
+</div>
 
-        <div id="details" class="section active">
+<!-- DETAILS FORM -->
 
-            <input type="number"
-                   name="followers"
-                   placeholder="Followers">
+<div id="details-section" class="section">
 
-            <input type="number"
-                   name="following"
-                   placeholder="Following">
+<form action="/predict" method="POST">
 
-            <input type="number"
-                   name="posts"
-                   placeholder="Posts">
+<input type="number"
+       class="input-box"
+       name="followers"
+       placeholder="Followers">
 
-            <input type="text"
-                   name="username"
-                   placeholder="Username">
+<input type="number"
+       class="input-box"
+       name="following"
+       placeholder="Following">
 
-            <textarea name="bio"
-                      placeholder="Profile Bio"></textarea>
+<input type="number"
+       class="input-box"
+       name="posts"
+       placeholder="Posts">
 
-        </div>
+<input type="text"
+       class="input-box"
+       name="username"
+       placeholder="Username">
 
-        <!-- IMAGE SECTION -->
+<textarea class="input-box"
+          name="bio"
+          placeholder="Profile Bio"></textarea>
 
-        <div id="image" class="section">
+<button class="submit-btn"
+        type="submit">
 
-            <div class="upload-box">
+🔍 Analyze Profile
 
-                <h3>Upload Instagram Screenshot</h3>
+</button>
 
-                <input type="file"
-                       name="profile_image"
-                       accept="image/*">
+</form>
 
-            </div>
+</div>
 
-        </div>
+<!-- IMAGE FORM -->
 
-        <button class="submit-btn"
-                type="submit">
+<div id="upload-section" class="section">
 
-            Check Profile
+<form action="/predict"
+      method="POST"
+      enctype="multipart/form-data">
 
-        </button>
+<div class="upload-box">
 
-    </form>
+<h3>Upload Instagram Screenshot</h3>
 
-    {% endif %}
+<p>PNG, JPG, JPEG</p>
 
-    <!-- RESULT SECTION -->
+<br>
 
-    {% if result %}
+<input type="file"
+       name="profile_image"
+       accept="image/*">
 
-    <div class="result">
+</div>
 
-        <h2>{{ result }}</h2>
+<button class="submit-btn"
+        type="submit">
 
-        <h3 style="text-align:center;">
+🔍 Analyze Screenshot
 
-            Fake Probability: {{ score }}%
+</button>
 
-        </h3>
+</form>
 
-        <br>
+</div>
 
-        <h3>Analysis Report</h3>
+{% endif %}
 
-        <ul>
+<!-- RESULT SCREEN -->
 
-            {% for reason in reasons %}
-                <li>{{ reason }}</li>
-            {% endfor %}
+{% if result %}
 
-        </ul>
+<div class="result">
 
-        <br><br>
+<h2>{{ result }}</h2>
 
-        <button
-            onclick="window.location.href='/'"
-            class="submit-btn">
+<h3>Fake Probability: {{ score }}%</h3>
 
-            Analyze Another Profile
+<h3>Analysis Report</h3>
 
-        </button>
+<ul>
 
-    </div>
+{% for reason in reasons %}
+<li>{{ reason }}</li>
+{% endfor %}
 
-    {% endif %}
+</ul>
+
+<button class="back-btn"
+        onclick="window.location.href='/'">
+
+Analyze Another Profile
+
+</button>
+
+</div>
+
+{% endif %}
 
 </div>
 
@@ -383,14 +372,9 @@
 function showSection(sectionId){
 
     document
-        .getElementById("details")
-        .classList
-        .remove("active");
-
-    document
-        .getElementById("image")
-        .classList
-        .remove("active");
+        .getElementById("main-options")
+        .style
+        .display = "none";
 
     document
         .getElementById(sectionId)
@@ -401,5 +385,4 @@ function showSection(sectionId){
 </script>
 
 </body>
-
 </html>
