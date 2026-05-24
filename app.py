@@ -48,10 +48,7 @@ def predict():
 
             detected_text = " ".join(text_list).lower()
 
-            # -----------------------------
-            # EXTRACT NUMBERS
-            # -----------------------------
-
+            # Extract numbers
             numbers = re.findall(r'\d+(?:,\d+)?', detected_text)
 
             clean_numbers = []
@@ -72,9 +69,7 @@ def predict():
                 followers = clean_numbers[1]
                 following = clean_numbers[2]
 
-            # -----------------------------
             # POSTS ANALYSIS
-            # -----------------------------
 
             if posts == 0:
                 score += 40
@@ -87,9 +82,7 @@ def predict():
             elif posts > 10:
                 score -= 10
 
-            # -----------------------------
             # FOLLOWERS ANALYSIS
-            # -----------------------------
 
             if followers < 10:
                 score += 35
@@ -102,9 +95,7 @@ def predict():
             elif followers > 500:
                 score -= 15
 
-            # -----------------------------
             # FOLLOWING ANALYSIS
-            # -----------------------------
 
             if following > 3000:
                 score += 30
@@ -114,9 +105,7 @@ def predict():
                 score += 10
                 reasons.append("High following count")
 
-            # -----------------------------
             # USERNAME ANALYSIS
-            # -----------------------------
 
             usernames = re.findall(r'[a-zA-Z0-9_.]+', detected_text)
 
@@ -134,17 +123,13 @@ def predict():
                     reasons.append("Username contains numbers")
                     break
 
-            # -----------------------------
             # PRIVATE ACCOUNT
-            # -----------------------------
 
             if "private" in detected_text:
                 score += 5
                 reasons.append("Private account")
 
-            # -----------------------------
-            # DEFAULT PROFILE PHOTO
-            # -----------------------------
+            # PROFILE PHOTO ANALYSIS
 
             unique_colors = len(
                 np.unique(
@@ -157,9 +142,7 @@ def predict():
                 score += 25
                 reasons.append("Default or blank profile picture")
 
-            # -----------------------------
             # BIO ANALYSIS
-            # -----------------------------
 
             suspicious_words = [
                 "crypto",
@@ -194,9 +177,7 @@ def predict():
             reasons=[]
         )
 
-    # -----------------------------
     # FINAL SCORE FIX
-    # -----------------------------
 
     if score < 0:
         score = 0
@@ -204,9 +185,7 @@ def predict():
     if score > 100:
         score = 100
 
-    # -----------------------------
     # FINAL RESULT
-    # -----------------------------
 
     if score >= 50:
 
@@ -225,5 +204,4 @@ def predict():
 
 
 if __name__ == '__main__':
-    if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000)
